@@ -1,0 +1,8 @@
+thorntail:
+  datasources:
+    data-sources:
+      gestioneFlussiDS:
+        driver-name: mysql
+        connection-url: jdbc:mysql://localhost:3306/gestione_flussi
+        user-name: root
+        password: root

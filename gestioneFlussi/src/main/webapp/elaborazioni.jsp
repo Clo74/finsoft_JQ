@@ -29,11 +29,6 @@
 			</table>
 
 		</div>	
-		<div class="container">
-			<select class="js-example-data-array" name="state">
-			</select>
-			<input type="button" value="seleziona" id="selElab">		
-		</div>
 
 	</article>
 

@@ -10,55 +10,37 @@ class PagElaborazioni {
 
 		this.bindingAll();
 		this.getAllData();
-		this.myJson = {};
-		this.ArrCol = [];
 		this.myArrJson = [];
+		this.myJson = {};
+		this.myArrJson2 = [];
+		this.ArrCol = [];
 		this.versI = "";
 		this.versO = "";
 		this.arrOpt = [];
-		this.getCampi();
 	}
 	
-	getCampi(){
-		this.butSel = $("#selElab");
-		this.butSel.click(this.getSelect);
-		
-		this.selElab = $(".js-example-data-array");
-	}
-	
-	getSelect() {
-		console.log(this.selElab.select2('data'));
-	}
-	
-	correggiJsonSelect(arrJson) {
-		arrJson.map((json) => {
-			this.myJson = {
-					id:json.id,
-					text: json.dataOra + "-" + json.utente 
-			}
-			this.myArrJson.push(this.myJson);
-		})
-		return this.myArrJson;
+	correggiJson(json) {
+		this.versI = "";
+		json.versioni_input.map((arr) => {
+			this.versI += " - " + arr.data + " vers: " + arr.versione;
+			});	
+		this.versO = "";
+		json.versioni_output.map((arr) => {
+			this.versO += " - " + arr.data + " vers: " + arr.versione;
+			});	
+		this.myJson = {
+				id:json.id,
+				dataOra: json.dataOra,
+				utente: json.utente, 
+				versioni_input: this.versI,
+				versioni_output: this.versO
+		}
+		return this.myJson;
 	}
 	
 	correggiJsonTabElab(arrJson) {
 		arrJson.map((json) => {
-			this.versI = "";
-			json.versioni_input.map((arr) => {
-				this.versI += " - " + arr.data + " vers: " + arr.versione;
-				});	
-			this.versO = "";
-			json.versioni_output.map((arr) => {
-				this.versO += " - " + arr.data + " vers: " + arr.versione;
-				});	
-			this.myJson = {
-					id:json.id,
-					dataOra: json.dataOra,
-					Utente: json.utente, 
-					FlussiVersioniI: this.versI,
-					FlussiVersioniO: this.versO
-			}
-			this.myArrJson.push(this.myJson);
+			this.myArrJson.push(this.correggiJson(json));
 		})
 		return this.myArrJson;
 	}
@@ -83,8 +65,8 @@ class PagElaborazioni {
 	        		    type: "readonly"	        		    
 	        	};
 	        	break;
-        	case "FlussiVersioniI":
-        	case "FlussiVersioniO":
+        	case "versioni_input":
+        	case "versioni_output":
 	        	this.myJson = {
         		    data: col,
         		    title: col,
@@ -110,7 +92,7 @@ class PagElaborazioni {
 	
 	riempiVersioni(response){
 		response.map((v) => {
-				this.arrOpt["'" + v.id + "'"] = v.data
+				this.arrOpt["'" + v.id + "'"] = v.data  + " vers: " + v.versione;
 			});
 		
 	}
@@ -148,31 +130,55 @@ class PagElaborazioni {
 		  });
 	}
 	
+	creaJsonVersioni(arr){
+		this.myArrJson = [];
+		arr.map((v) => {
+			this.myJson = {id: v};
+			this.myArrJson.push(this.myJson);
+		})
+		return this.myArrJson;
+	}
 	
-	creaSelect(){
-		this.selElab.select2({
-			data : this.dataSelect,
-			type: "json",
-			multiple: "multiple"			
-		})		
+	creaJsonSendServ(json){
+		return {
+			dataOra: this.formatData(json.dataOra),
+			utente: json.utente,
+			versioni_input: this.creaJsonVersioni(json.versioni_input),
+			versioni_output: this.creaJsonVersioni(json.versioni_output)				
+			}
+	}
+	
+	formatData(data) {
+		var d =data.slice(0, data.indexOf("/"));
+		if (d.length < 2) d = "0" + d;
+		var m =  data.slice(data.indexOf("/") + 1, data.lastIndexOf("/"));
+		if (m.length < 2) m = "0" + m;
+		var a = data.slice(data.lastIndexOf("/") + 1)
+		var data = d.concat("/", m ,"/", a)
+		return data;
 	}
 
+	
 	editRow(datatable, rowdata, success, error) {
-		this.service.update(rowdata.id, rowdata, success, error);
+		this.service.update(rowdata.id, this.creaJsonSendServ(rowdata), success, error, this.correggiJson);
 	}
 	
+	addRow(datatable, rowdata, success, error) {
+		this.service.add(this.creaJsonSendServ(rowdata), success, error, this.correggiJson);
+	}	
     bindingAll() {
-        this.creaSelect = this.creaSelect.bind(this);
+        // this.creaSelect = this.creaSelect.bind(this);
         this.creaTabella = this.creaTabella.bind(this);
         this.createColumn = this.createColumn.bind(this);
         this.getAllData = this.getAllData.bind(this);
-        this.correggiJsonSelect = this.correggiJsonSelect.bind(this);  
         this.correggiJsonTabElab = this.correggiJsonTabElab.bind(this);
-        this.getSelect = this.getSelect.bind(this);
+        this.correggiJson = this.correggiJson.bind(this);
         this.caricaVersioni = this.caricaVersioni.bind(this);
         this.riempiVersioni = this.riempiVersioni.bind(this);
-        
-        this.getCampi = this.getCampi.bind(this);
+        this.editRow = this.editRow.bind(this);
+        this.addRow = this.addRow.bind(this);
+        this.creaJsonVersioni = this.creaJsonVersioni.bind(this);
+
     }
 }
 

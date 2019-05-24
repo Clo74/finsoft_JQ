@@ -12,9 +12,13 @@ import AbstractService from "./AbstractService.js";
 	 }
 	 
 	 all(funSuccess) {
-		 $.ajax({url: this.url, success: function(result) {
+		 $.ajax({
+			 	url: this.url,
+			 	success: funSuccess
+			 /*function(result) {
 			 funSuccess(result);
-			 }});		 
+			 }*/
+			 	});		 
 	 }
 
 	 delete (id, funSuccess, funError) {
@@ -29,14 +33,14 @@ import AbstractService from "./AbstractService.js";
 			 });
 	 }
 
-	 add (json, funSuccess, funError, funRicreaJson) {
+	 add (json, funSuccess, funError, funReturn) {
 		 $.ajax({url: this.url , 
 			 type : "POST", 
 			 dataType: "json",
 			 contentType: "application/json; charset=utf-8",			 
 			 data: JSON.stringify(json),
 			 success: function( data, textStatus, jqXHR) {
-				 funSuccess(JSON.stringify(data), textStatus, jqXHR)
+				 funSuccess(JSON.stringify(funReturn(data)), textStatus, jqXHR)
 			 },
 			 error: function(jqXHR, textStatus, errorThrown) {
 				 funError(jqXHR, textStatus, errorThrown)
@@ -44,14 +48,14 @@ import AbstractService from "./AbstractService.js";
 			 });
 	 }
 
-	 update (id, json, funSuccess, funError) {
+	 update (id, json, funSuccess, funError, funReturn) {
 		 $.ajax({url: this.url + "/" + id , 
 			 type : "PUT", 
 			 dataType: "json",
 			 contentType: "application/json; charset=utf-8",			 
 			 data: JSON.stringify(json),
-			 success: function( data, textStatus, jqXHR) {
-				 funSuccess(JSON.stringify(data), textStatus, jqXHR)
+			 success: function(data, textStatus, jqXHR) {
+				 funSuccess(JSON.stringify(funReturn(data)), textStatus, jqXHR)
 			 },
 			 error: function(jqXHR, textStatus, errorThrown) {
 				 funError(jqXHR, textStatus, errorThrown)

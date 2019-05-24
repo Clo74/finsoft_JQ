@@ -79,6 +79,13 @@ class PagVersioni {
         		    options: this.arrOpt	        		    
         	};
 	        	break;
+        	case "data":
+	        	this.myJson = {
+        		    data: col,
+        		    title: col,
+        		    datepicker: true	        		    
+        	};
+	        	break;
         	default:
 	        	this.myJson = {
 	        		    data: col,

@@ -1,2 +1,2 @@
-git add -A && git commit -m  newfinsoft
-git push finsoft master
+git add -A && git commit -m  newfinsoft_JQ
+git push finsoftJQ master

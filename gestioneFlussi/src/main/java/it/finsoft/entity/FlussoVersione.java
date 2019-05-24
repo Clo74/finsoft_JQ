@@ -25,8 +25,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 	//@NamedQuery(name="FlussoVersione.getElab",query="select e from Elaborazione e inner join e.versioni v where v.id = :idFluss"),
 	})
 @Table(name="t_flussi_versioni")
-public class FlussoVersione  implements Serializable {
-
+public class FlussoVersione  implements Serializable  {
+//, Comparable<Object>
 	/**
 	 * 
 	 */
@@ -134,6 +134,12 @@ public class FlussoVersione  implements Serializable {
 	public String toString() {
 		return "FlussoVersione [id=" + id + ", data=" + data + ", versione=" + versione + ", flusso=" + flusso + "]";
 	}
+
+	/*@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}*/
 
     
 }

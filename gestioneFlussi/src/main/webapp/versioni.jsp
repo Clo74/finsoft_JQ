@@ -11,6 +11,7 @@
 
 <!-- Bootstrap CSS -->
 <c:import url="./include/importh.jsp" />
+<link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css"/ >
 
 </head>
 
@@ -36,6 +37,8 @@
 
 	<c:import url="./include/script.jsp" />
 	<script src="./js/dataTables.altEditor.free.js"></script>
+	<script src="./js/jquery.js"></script>
+	<script src="./js/jquery.datetimepicker.full.min.js"></script>
 	<script src="./js/versioni.js" type="module"></script>
 
 

@@ -53,11 +53,11 @@ public class Elaborazione implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "t_Elaborazioni_input", joinColumns = @JoinColumn(name = "id_elaborazione", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_flusso_versione", referencedColumnName = "id"))
-	private Set<FlussoVersione> versioni_input = new TreeSet<>();
+	private Set<FlussoVersione> versioni_input;// = new TreeSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "t_Elaborazioni_output", joinColumns = @JoinColumn(name = "id_elaborazione", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_flusso_versione", referencedColumnName = "id"))
-	private Set<FlussoVersione> versioni_output = new TreeSet<>();
+	private Set<FlussoVersione> versioni_output;// = new TreeSet<>();
 
 	public Set<FlussoVersione> getVersioni_input() {
 		return versioni_input;

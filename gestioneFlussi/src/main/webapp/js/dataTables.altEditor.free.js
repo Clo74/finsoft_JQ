@@ -516,7 +516,7 @@
 													.find(
 															"#"
 																	+ columnDefs[j].name)
-													.datepicker(
+													.datetimepicker(
 															columnDefs[j].datepicker);
 										}
 									}
@@ -946,7 +946,9 @@
 
 									// TODO should honor dt.ajax().dataSrc
 
-									var data = JSON.parse(response);
+									var data = (typeof response === "string") ? JSON
+											.parse(response)
+											: response;
 									var selector = this.modal_selector;
 									$(selector + ' .modal-body .alert')
 											.remove();

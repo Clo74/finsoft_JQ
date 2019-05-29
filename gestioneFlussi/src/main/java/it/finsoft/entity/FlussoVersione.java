@@ -50,27 +50,6 @@ public class FlussoVersione  implements Serializable  {
     @JoinColumn(name = "id_flusso", referencedColumnName = "id", nullable = false)
     private Flusso flusso;	
 
-   /* @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "t_Elaborazioni_input",
-            joinColumns = @JoinColumn(name = "id_flusso_versione",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_elaborazione",
-                    referencedColumnName = "id")
-    )
-    private Set<Elaborazione> elaborazioni_input = new TreeSet<>();
-
-   @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "t_Elaborazioni_output",
-            joinColumns = @JoinColumn(name = "id_flusso_versione",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_elaborazione",
-                    referencedColumnName = "id")
-    )
-    private Set<Elaborazione> elaborazioni_output = new TreeSet<>();
-    */
-    
 	public Integer getId() {
 		return id;
 	}

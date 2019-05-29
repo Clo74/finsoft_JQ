@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import it.finsoft.business.FlussoStore;
 import it.finsoft.entity.Flusso;
+import it.finsoft.entity.FlussoDT;
 
 @Path("/flussi")
 public class FlussiResource {
@@ -33,10 +34,11 @@ public class FlussiResource {
 	@GET
 	@Path("/pagin")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Flusso> findAllPag(@DefaultValue("0") @QueryParam("start") Integer start,
-			@DefaultValue("10") @QueryParam("nrRec") Integer nrRec) {
+	public FlussoDT findAllPag(@DefaultValue("0") @QueryParam("start") Integer start,
+			@DefaultValue("10") @QueryParam("length") Integer nrRec, 
+			@QueryParam("search[value]") String search ) {
 
-		return store.findAllPag(start, nrRec);
+		return store.findAllPag(start, nrRec, search);
 	}
 
 	@GET
@@ -68,4 +70,11 @@ public class FlussiResource {
 	public void delete(@PathParam("id") Integer id) {
 		store.remove(id);
 	}
+	
+	@POST
+	@Path("/popolaFlussi/{nr}")
+	public void popola(@PathParam("nr") Integer nr) {
+		store.popola(nr);
+	}
+	
 }

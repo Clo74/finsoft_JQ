@@ -15,7 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Flusso.findAll",query="select f from Flusso f"),
+	@NamedQuery(name="Flusso.qtaRec",query="select count(f) from Flusso f where f.tabella like :search"),
+	@NamedQuery(name="Flusso.findAll",query="select f from Flusso f order by f.tabella"),
+	@NamedQuery(name="Flusso.findAllPag",query="select f from Flusso f where f.tabella like :search order by f.tabella"),
 	@NamedQuery(name="Flusso.findBytabella",query="select f from Flusso f where f.tabella like :tab"),
 	})
 @Table(name="t_flussi")
@@ -37,8 +39,7 @@ public class Flusso  implements Serializable {
     @OneToMany(mappedBy = "flusso")
     private Set<FlussoVersione> versioni;
     
-	public Flusso(Integer id, String tabella) {
-		this.id = id;
+	public Flusso(String tabella) {
 		this.tabella = tabella;
 	}
 

@@ -315,7 +315,9 @@
 											select2 : (obj.select2 ? obj.select2
 													: false),
 											datepicker : (obj.datepicker ? obj.datepicker
-													: false)
+													: false),
+											datetimepicker : (obj.datetimepicker ? obj.datetimepicker
+													: false)													
 										};
 									}
 									var adata = dt.rows({
@@ -511,14 +513,26 @@
 									// enable datepicker
 									for ( var j in columnDefs) {
 										if (columnDefs[j].datepicker) {
-											// Require jquery-ui
+											
 											$(selector)
-													.find(
-															"#"
-																	+ columnDefs[j].name)
+													.find("#"+ columnDefs[j].name)
 													.datetimepicker(
-															columnDefs[j].datepicker);
+															//columnDefs[j].datepicker);
+															{
+																timepicker:false,
+																format: 'd/m/Y'
+															});
 										}
+										if (columnDefs[j].datetimepicker) {
+											
+											$(selector)
+													.find("#"+ columnDefs[j].name)
+													.datetimepicker(
+															{
+																timepicker:true,
+																format: 'd/m/Y H:i'
+															});
+										}										
 									}
 								},
 
@@ -716,7 +730,11 @@
 											multiple : (obj.multiple ? obj.multiple
 													: false),
 											select2 : (obj.select2 ? obj.select2
-													: false)
+													: false),
+											datepicker : (obj.datepicker ? obj.datepicker
+													: false),
+											datetimepicker : (obj.datetimepicker ? obj.datetimepicker
+													: false)													
 										}
 									}
 
@@ -873,6 +891,30 @@
 															columnDefs[j].select2);
 										}
 									}
+									// enable datepicker
+									for ( var j in columnDefs) {
+										if (columnDefs[j].datepicker) {
+											
+											$(selector)
+													.find("#"+ columnDefs[j].name)
+													.datetimepicker(
+															{
+																timepicker:false,
+																format: 'd/m/Y'
+															});
+										}
+										if (columnDefs[j].datetimepicker) {
+											
+											$(selector)
+													.find("#"+ columnDefs[j].name)
+													.datetimepicker(
+															{
+																timepicker:true,
+																format: 'd/m/Y H:i'
+															});
+										}										
+									}
+									
 								},
 
 								/**

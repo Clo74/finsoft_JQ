@@ -4,7 +4,7 @@
 import VersioniServiceJQ from "./versioniServiceJQ.js";
 import FlussiServiceJQ from "./flussiServiceJQ.js";
 
-class PagVersioni {
+class PagVersioni2 {
 	
 	constructor() {
 		this.service = new VersioniServiceJQ();
@@ -80,8 +80,8 @@ class PagVersioni {
 	        	break;
         	case "flusso":
 	        	this.myJson = {
-        		    data: col,
-        		    title: col,
+        		    data: "flusso.id",
+        		    title: "flusso.id",
         		    type: "select", 
         		    options: this.arrOpt	        		    
         	};
@@ -108,7 +108,8 @@ class PagVersioni {
 	 * restituito dal servizio rest di GET
 	 */		
 	creaTabella(result){
-		this.data = this.ricreaArrJson(result);	
+		//this.data = this.ricreaArrJson(result);	
+		this.data = result
 		this.createColumn();
 		this.myTable = $('#flussi').DataTable({
 		    "sPaginationType": "full_numbers",
@@ -205,5 +206,5 @@ class PagVersioni {
 }
 
 $(document).ready(function() {
-	new PagVersioni();
+	new PagVersioni2();
 });
